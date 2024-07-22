@@ -3,8 +3,12 @@
 import { Button } from "@/components/ui/button";
 import { createUrl } from "./actions";
 import { useFormState } from "react-dom";
-export default function Home() {
+import { SignIn } from "@/components/Signin";
+import { SignOut } from "@/components/Signout";
+import User from "@/components/User";
+export default async function Home() {
     const [state, createUrlAction] = useFormState(createUrl, { error: null });
+
     return (
         <>
             <nav>
@@ -24,6 +28,8 @@ export default function Home() {
                 use.
             </p>
 
+            {/* <User /> */}
+
             <main>
                 <form key={state?.resetKey} action={createUrlAction}>
                     <span>Enter your URL</span>
@@ -31,6 +37,9 @@ export default function Home() {
 
                     <Button type="submit">Shorten</Button>
                 </form>
+
+                <SignIn />
+                <SignOut />
             </main>
 
             <footer>
