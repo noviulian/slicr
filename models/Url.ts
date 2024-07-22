@@ -1,15 +1,21 @@
-// models/Url.js
-import mongoose from "mongoose";
+import mongoose, { Document } from "mongoose";
 
-const UrlSchema = new mongoose.Schema({
+interface IUrl {
+    originalUrl: string;
+    shortCode: string;
+    clicks: number;
+    createdAt: Date;
+}
+
+const UrlSchema = new mongoose.Schema<IUrl>({
     originalUrl: {
         type: String,
-        // required: true,
+        required: true,
     },
     shortCode: {
         type: String,
-        // required: true,
-        // unique: true,
+        required: true,
+        unique: true,
     },
     clicks: {
         type: Number,
@@ -21,4 +27,8 @@ const UrlSchema = new mongoose.Schema({
     },
 });
 
-export default mongoose.models.Url || mongoose.model("Url", UrlSchema);
+const Url =
+    (mongoose.models.Url as mongoose.Model<IUrl>) ||
+    mongoose.model<IUrl>("Url", UrlSchema);
+
+export default Url;
